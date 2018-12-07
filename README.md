@@ -7,11 +7,6 @@
 
 ![Animation](https://raw.githubusercontent.com/Cuberto/flashy-tabbar/master/Screenshots/animation.gif)
 
-## Requirements
-
-- iOS 9.0+
-- xCode 9
-
 ## Example
 
 To run the example project, clone the repo, and run `ExampleApp`  scheme from FlashyTabBar.xcodeproj
