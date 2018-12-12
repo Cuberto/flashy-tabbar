@@ -55,7 +55,7 @@ Add CBFlashyTabBarController folder to your project
 
 1. Import CBFlashyTabBarController
 2. Instantiate `CBFlashyTabBarController`
-3. Add some child conrollers and don't forget to set them tabBar items with title and image
+3. Add some child controllers and don't forget to set them tabBar items with title and image
 
 
 ## Author
