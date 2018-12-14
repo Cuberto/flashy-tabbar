@@ -14,7 +14,7 @@ To run the example project, clone the repo, and run `ExampleApp`  scheme from Fl
 ## Requirements
 
 - iOS 10.0+
-- xCode 9
+- Xcode 9
 
 ## Installation
 
