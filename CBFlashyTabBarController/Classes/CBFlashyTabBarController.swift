@@ -49,12 +49,19 @@ open class CBFlashyTabBarController: UITabBarController {
         super.viewDidAppear(animated)
     }
 
-    private var barHeight: CGFloat {
-        var height: CGFloat = 74
-        if #available(iOS 11.0, *) {
-            height += view.safeAreaInsets.bottom
+    private var _barHeight: CGFloat = 74
+    open var barHeight: CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return _barHeight + view.safeAreaInsets.bottom
+            } else {
+                return _barHeight
+            }
         }
-        return height
+        set {
+            _barHeight = newValue
+            updateTabBarFrame()
+        }
     }
 
     private func updateTabBarFrame() {
