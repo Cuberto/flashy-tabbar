@@ -20,11 +20,6 @@ open class CBFlashyTabBar: UITabBar {
     fileprivate var shouldSelectOnTabBar = true
     open override var selectedItem: UITabBarItem? {
         willSet {
-            guard shouldSelectOnTabBar else {
-                shouldSelectOnTabBar = true
-                return
-
-            }
             guard let newValue = newValue else {
                 buttons.forEach { $0.setSelected(false, animated: false) }
                 return
@@ -59,7 +54,6 @@ open class CBFlashyTabBar: UITabBar {
         backgroundColor = UIColor.white
         isTranslucent = false
         barTintColor = UIColor.white
-        tintColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.431372549, alpha: 1)
     }
 
     open override var items: [UITabBarItem]? {
@@ -141,11 +135,6 @@ open class CBFlashyTabBar: UITabBar {
             button.setSelected(false, animated: false)
         }
         selectedbutton.setSelected(true, animated: false)
-        if let item = items?[index] {
-            shouldSelectOnTabBar = false
-            selectedItem = item
-        }
-
     }
 
 }

@@ -138,6 +138,7 @@ class CBTabBarButton: UIControl {
         guard animated, let deselectAnimation = deselectAnimation else {
                 tabLabel.isHidden = true
                 tabImage.isHidden = false
+                dotView.isHidden = true
                 return
         }
         tabImage.isHidden = false

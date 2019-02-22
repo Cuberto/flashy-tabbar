@@ -41,7 +41,11 @@ open class CBFlashyTabBarController: UITabBarController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        guard self.tabBar as? CBFlashyTabBar == nil else {
+            return
+        }
         let tabBar = CBFlashyTabBar()
+        tabBar.barTintColor = self.tabBar.barTintColor
         self.setValue(tabBar, forKey: "tabBar")
     }
 
