@@ -29,6 +29,7 @@ class ViewController: UIViewController {
 
         let tabBarController = CBFlashyTabBarController()
         tabBarController.viewControllers = [eventsVC, searchVC, activityVC, settingsVC]
+//        navigationController?.pushViewController(tabBarController, animated: true)
         self.present(tabBarController, animated: true, completion: nil)
     }
 

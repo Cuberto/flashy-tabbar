@@ -50,13 +50,25 @@ open class CBFlashyTabBar: UITabBar {
         super.setItems(items, animated: animated)
         reloadViews()
     }
+    
+    
+    var barHeight: CGFloat = 60
+    
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = super.sizeThatFits(size)
+        sizeThatFits.height = barHeight
+        if #available(iOS 11.0, *) {
+            sizeThatFits.height = sizeThatFits.height + safeAreaInsets.bottom
+        }
+        return sizeThatFits
+    }
 
     open override func layoutSubviews() {
         super.layoutSubviews()
         let btnWidth = bounds.width / CGFloat(buttons.count)
         var btnHeight = bounds.height
         if #available(iOS 11.0, *) {
-            btnHeight -= safeAreaInsets.bottom/2.0
+            btnHeight -= safeAreaInsets.bottom
         }
 
         for (index, button) in buttons.enumerated() {
@@ -65,7 +77,7 @@ open class CBFlashyTabBar: UITabBar {
         }
     }
 
-    private func reloadViews() {
+    func reloadViews() {
         subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }.forEach { $0.removeFromSuperview() }
         buttons.forEach { $0.removeFromSuperview()}
         buttons = items?.map { self.button(forItem: $0) } ?? []
@@ -75,8 +87,8 @@ open class CBFlashyTabBar: UITabBar {
 
     private func reloadAnimations() {
         buttons.forEach { (button) in
-            button.selectAnimation = CBTabItemSelectAnimation(duration: 0.3 / animationSpeed)
-            button.deselectAnimation = CBTabItemDeselectAnimation(duration: 0.3 / animationSpeed)
+            button.selectAnimation = CBTabItemSelectAnimation(duration: 0.5 / animationSpeed)
+            button.deselectAnimation = CBTabItemDeselectAnimation(duration: 0.5 / animationSpeed)
         }
     }
 
