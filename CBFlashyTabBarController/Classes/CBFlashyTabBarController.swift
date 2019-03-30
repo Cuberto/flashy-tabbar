@@ -45,7 +45,9 @@ open class CBFlashyTabBarController: UITabBarController {
             return
         }
         let tabBar = CBFlashyTabBar()
-        tabBar.barTintColor = self.tabBar.barTintColor
+        if let barTint = self.tabBar.barTintColor {
+            tabBar.barTintColor = barTint
+        }
         self.setValue(tabBar, forKey: "tabBar")
     }
 
