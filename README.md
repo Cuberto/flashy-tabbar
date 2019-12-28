@@ -57,6 +57,9 @@ Add CBFlashyTabBarController folder to your project
 2. Instantiate `CBFlashyTabBarController`
 3. Add some child controllers and don't forget to set them tabBar items with title and image
 
+## Android
+
+Similar library [FlashyTabBar](https://github.com/Cuberto/flashy-tabbar-android) by [Cuberto](https://github.com/Cuberto)
 
 ## Author
 
