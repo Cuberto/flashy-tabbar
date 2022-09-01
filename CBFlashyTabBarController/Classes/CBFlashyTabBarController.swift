@@ -11,6 +11,12 @@ import UIKit
 open class CBFlashyTabBarController: UITabBarController {
 
     fileprivate var shouldSelectOnTabBar = true
+    
+    open var font = UIFont.systemFont(ofSize: 12, weight: .semibold) {
+        didSet {
+            (tabBar as? CBFlashyTabBar)?.font = font
+        }
+    }
 
     open override var selectedViewController: UIViewController? {
         willSet {
@@ -41,10 +47,15 @@ open class CBFlashyTabBarController: UITabBarController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        setupTabbar()
+    }
+    
+    func setupTabbar() {
         guard self.tabBar as? CBFlashyTabBar == nil else {
             return
         }
         let tabBar = CBFlashyTabBar()
+        tabBar.font = font
         if let barTint = self.tabBar.barTintColor {
             tabBar.barTintColor = barTint
         }

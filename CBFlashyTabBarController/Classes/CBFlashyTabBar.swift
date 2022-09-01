@@ -33,6 +33,12 @@ open class CBFlashyTabBar: UITabBar {
 
         }
     }
+    
+    open var font = UIFont.systemFont(ofSize: 12, weight: .semibold) {
+        didSet {
+            reloadViews()
+        }
+    }
 
     open override var tintColor: UIColor! {
         didSet {
@@ -95,6 +101,7 @@ open class CBFlashyTabBar: UITabBar {
     private func button(forItem item: UITabBarItem) -> CBTabBarButton {
         let button = CBTabBarButton(item: item)
         button.tintColor = tintColor
+        button.font = font
         button.addTarget(self, action: #selector(btnPressed), for: .touchUpInside)
         if selectedItem != nil && item === selectedItem {
             button.select(animated: false)

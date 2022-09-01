@@ -33,6 +33,13 @@ class CBTabBarButton: UIControl {
         }
     }
 
+    var font = UIFont.systemFont(ofSize: 12, weight: .semibold) {
+        didSet {
+            tabLabel.attributedText = attributedText(fortitle: item?.title)
+            tabLabel.font = font
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
@@ -70,7 +77,7 @@ class CBTabBarButton: UIControl {
         var attrs: [NSAttributedString.Key: Any] = [:]
         attrs[.kern] = -0.2
         attrs[.foregroundColor] = tintColor
-        attrs[.font] = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        attrs[.font] = font
         return NSAttributedString(string: title ?? "", attributes: attrs)
     }
 
@@ -79,7 +86,7 @@ class CBTabBarButton: UIControl {
         addSubview(tabImage)
         addSubview(dotView)
         tabLabel.numberOfLines = 2
-        tabLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        tabLabel.font = font
         tabLabel.isHidden = true
         tabImage.contentMode = .center
         let dotSize: CGFloat = 5.0
