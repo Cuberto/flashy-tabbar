@@ -9,11 +9,11 @@
 import UIKit
 
 class CBTabBarButton: UIControl {
-
+    
     var tabImage = UIImageView()
     var tabLabel = UILabel()
     var dotView = UIView()
-
+    
     var selectAnimation: CBTabItemAnimation?
     var deselectAnimation: CBTabItemAnimation?
     private var _isSelected: Bool = false
@@ -32,17 +32,17 @@ class CBTabBarButton: UIControl {
             }
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configureSubviews()
     }
-
+    
     init(item: UITabBarItem) {
         super.init(frame: .zero)
         configureSubviews()
@@ -50,14 +50,14 @@ class CBTabBarButton: UIControl {
             self.item = item
         }
     }
-
+    
     var item: UITabBarItem? {
         didSet {
             tabImage.image = item?.image?.withRenderingMode(.alwaysTemplate)
-            tabLabel.attributedText = attributedText(fortitle: item?.title)
+            tabLabel.attributedText = attributedText(fortitle: item)
         }
     }
-
+    
     override var tintColor: UIColor! {
         didSet {
             tabImage.tintColor = tintColor.withAlphaComponent(0.4)
@@ -65,15 +65,20 @@ class CBTabBarButton: UIControl {
             dotView.backgroundColor = tintColor
         }
     }
-
-    private func attributedText(fortitle title: String?) -> NSAttributedString {
+    
+    private func attributedText(fortitle item: UITabBarItem?) -> NSAttributedString {
         var attrs: [NSAttributedString.Key: Any] = [:]
         attrs[.kern] = -0.2
         attrs[.foregroundColor] = tintColor
         attrs[.font] = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        return NSAttributedString(string: title ?? "", attributes: attrs)
+        if let attributes = item?.titleTextAttributes(for: .normal) {
+            if let titleFont = attributes[NSAttributedString.Key.font] as? UIFont {
+                attrs[.font] = titleFont
+            }
+        }
+        return NSAttributedString(string: item?.title ?? "", attributes: attrs)
     }
-
+    
     private func configureSubviews() {
         addSubview(tabLabel)
         addSubview(tabImage)
@@ -89,7 +94,7 @@ class CBTabBarButton: UIControl {
         dotView.layer.rasterizationScale = UIScreen.main.scale
         dotView.isHidden = true
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         tabImage.sizeToFit()
@@ -101,7 +106,7 @@ class CBTabBarButton: UIControl {
         let dotY: CGFloat = tabLabel.frame.maxY + 13.0
         dotView.frame = CGRect(origin: CGPoint(x: dotX, y: dotY), size: dotView.frame.size)
     }
-
+    
     func setSelected(_ selected: Bool, animated: Bool) {
         if selected {
             select(animated: animated)
@@ -109,7 +114,7 @@ class CBTabBarButton: UIControl {
             deselect(animated: animated)
         }
     }
-
+    
     func select(animated: Bool = true) {
         guard !_isSelected else {
             return
@@ -129,17 +134,17 @@ class CBTabBarButton: UIControl {
             }
         }
     }
-
+    
     func deselect(animated: Bool = true) {
         guard _isSelected else {
             return
         }
         _isSelected = false
         guard animated, let deselectAnimation = deselectAnimation else {
-                tabLabel.isHidden = true
-                tabImage.isHidden = false
-                dotView.isHidden = true
-                return
+            tabLabel.isHidden = true
+            tabImage.isHidden = false
+            dotView.isHidden = true
+            return
         }
         tabImage.isHidden = false
         deselectAnimation.playAnimation(forTabBarItem: self) {[weak self] in
@@ -149,5 +154,5 @@ class CBTabBarButton: UIControl {
             }
         }
     }
-
+    
 }
